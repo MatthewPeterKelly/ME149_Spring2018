@@ -1,0 +1,9 @@
+## Matlab auto-save
+**/*.m~
+
+## Documents (by default)
+**/*.pdf
+
+## LaTeX autogen
+**/*.synctex.gz
+**/build/
