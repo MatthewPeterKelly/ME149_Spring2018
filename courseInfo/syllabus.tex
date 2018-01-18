@@ -1,0 +1,187 @@
+\documentclass[onecolumn]{article}
+%%%% Compile with PdfLaTex
+
+\usepackage{courier}   %Have code written out nicely
+\usepackage{color}
+\usepackage{cite}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+%%%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ %%%%
+
+% Custom editing commands
+\newcommand{\ra}{$\rightarrow$}
+\newcommand{\la}{$\leftarrow$}
+\newcommand{\da}{$\downarrow$}
+
+\catcode`\^^M=10      %  Makes blank lines meaningless, force use of \par
+
+%========================================================================
+\title{Optimal Control for Robotics - Course Syllabus}
+\date{Spring 2018}
+\author{Tufts University - Mechanical Engineering}
+%========================================================================
+\begin{document} %
+\maketitle
+%=================================================
+
+\section*{Personnel and Office Hours}
+
+\textbf{Instructor: }  Matthew Kelly \\
+\textbf{Email: }  \texttt{Mattew.Kelly@tufts.edu}\\
+\textbf{Course Website: }  \texttt{https://github.com/MatthewPeterKelly/ME149\_Spring2018} \\
+\textbf{Office Hours: }
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{-0.4em}
+  \item 30 minutes before each class and up to 60 minutes following each class
+  \item students are encouraged to attend at least 20 minutes of office hours per week
+\end{itemize}
+
+\section*{Course Information}
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{0em}
+  \item \textit{Description: }
+    Students taking this course will learn the basics of optimal control for robotics applications.
+    There will be a strong focus on trajectory optimization and trajectory-tracking controllers,
+      and assignments will focus on applications and implementation, rather than on theory.
+    In the first part of the course students will learn the core concepts of optimal control:
+      programming, simulation, control, and optimization.
+    In the second part of the course the students will put these concepts together to
+      design and stabilize reference trajectories in simulation.
+    The topics covered in this course are used in a variety of applications,
+      including aircraft, satellites, robot arms, legged robots, quad-rotor helicopters.
+
+  \item \textit{Goals: } Upon completing this course, students should:
+  \vspace{-0.6em} \begin{itemize}  \setlength\itemsep{0em}
+    \item understand the major concepts in optimal control, especially trajectory optimization
+    \item develop strong programming skills in Matlab
+    \item be able to
+      implement their own trajectory optimization,
+      design a trajectory-stabilizing controller,
+      and simulate a closed-loop dynamic system as it tracks a trajectory.
+  \end{itemize}
+  \item \textit{Recommended: } ME80 or ME180
+\end{itemize}
+
+\section*{General Policies}
+
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{0em}
+  \item \textit{Scheduling Conflicts: } If you have a conflict with the
+    midterm exam, final project, or a homework assignment, then you must
+    notify the instructure at least two weeks in advance.
+  \item \textit{Honor Policy: }
+    Your work should be your own.
+    Cite any help that you receive or resources that you use.
+    Do not directly copy code from other students or elsewhere.
+  \item \textit{Style: } All work must be clear and legible.
+   Code should be well documented and follow the style guide.
+   All plots should be fully annotated with axis labels, title, and a legend if appropriate.
+\end{itemize}
+
+\section*{Course Grading}
+
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{-0.4em}
+\item \textbf{Homework assignments: } 40\%
+\item \textbf{Midterm exam: } 25\%
+\item \textbf{Final project: } 35\%
+\end{itemize}
+
+\section*{Homework Policies}
+
+\textbf{Homework schedule:}
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{-0.4em}
+  \item Assigned weekly on Tuesday (usually - see schedule)
+  \item Due on the following Thursday at 6pm (nine days to complete assignment)
+  \item Graded and returned on the following Tuesday (five day turn-around)
+\end{itemize}
+
+\textbf{Homework grading:}
+  \vspace{-0.6em} \begin{itemize}  \setlength\itemsep{-0.4em}
+  \item Each assignment is worth 50 points
+  \item The assignment with the lowest score will be dropped from final grade
+  \item Late homework: up to two weeks late: -20 points, otherwise -40 points
+  \item You will lose points if your work is not clear, even if your answer is correct
+\end{itemize}
+
+\textbf{Team work:}
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{-0.4em}
+  \item All assignments must be submitted individually
+  \item Students are encouraged to help each other work through assignments
+  \item Directly copying code from other students is prohibited
+  \item In the write-up for each assignment (including the final project),
+        you must list the names of any other students that you worked with,
+        as well as any external resources that you used.
+\end{itemize}
+
+\section*{Useful Resources}
+
+\textbf{Matlab Style guide:} (\texttt{.pdf}) \\
+\small{\texttt{https://www.mathworks.com/matlabcentral/fileexchange/46056-matlab-style-guidelines-2-0}}\\
+\\
+\textbf{Textbook:} (primary text for the course) \\
+\textit{Practical Methods for Optimal Control and Estimation Using Nonlinear Programming} \\
+- John T. Betts,  SIAM,  Second Edition. \\
+\\
+\textbf{Textbook:} (additional reading) \\
+\textit{Applied Optimal Control: Optimization, Estimation, and Control} \\
+- Arthur E. Bryson Jr. and Yu-Chi Ho \\
+\\
+\textbf{Online Course:} (60\% overlap with this course)\\
+\textit{MIT Open Courseware:  Underactuated Robotics.}\\
+- Russ Tedrake (and others), two versions, both are good.\\
+\\
+\\
+
+
+\section*{Lectures}
+\textit{(table on following page)}
+\begin{table}
+  \renewcommand{\arraystretch}{1.2}%
+  \begin{tabular}{l|l|l}
+    \textbf{Date} & \textbf{HW} & \textbf{Topic} \\
+    \hline
+    R - Jan 18 & 1 \ra & Intro to optimal control: major concepts and applications. Intro to Matlab. \\
+    \hline
+    T - Jan 23 & 2 \ra & Intro to simulation: Euler's method. Matlab best practices. \\
+    R - Jan 25 & 1 \da & Midpoint and Heun's Method; Simulation analysis and stability.\\
+    T - Jan 30 & 3 \ra & Runge-Kutta methods and \texttt{ode45()}.\\
+    \hline
+    R - Feb 1  & 2 \da & Introduction to SISO control. \\
+    T - Feb 6  & 4 \ra & Trajectory-tracking control for SISO systems \\
+    R - Feb 8  & 3 \da & Control basics for MIMO systems: state space, linear control; 3 Dof planar arm simulation  \\
+    T - Feb 13 & 5 \ra & Trajectory-tracking for MIMO systems; Working overview of LQR; underactuated systems \\
+    \hline
+    R - Feb 15 & 4 \da &  Scalar optimization and root-finding part one\\
+    T - Feb 20 & 6 \ra &  Scalar optimization and root-finding part two\\
+    R - Feb 22 &       & \textbf{No Class -- Monday schedule on Thursday} \\
+    T - Feb 27 & 5 \da & Constrained optimization part one \\
+    R - Mar 1  & 7 \ra & Constrained optimization part two \\
+    \hline
+    T - Mar 6  & 8 \ra & Intro to optimal control: policy vs trajectory optimization, applications \\
+    R - Mar 8  & 7 \da & Single shooting; root finding; simplest walker example; cannon example \\
+    T - Mar 13 & 8 \da & Review for Midterm Exam \\
+    R - Mar 15 &       & In-class Midterm Exam \\
+    \hline
+    T - Mar 20 &       & \textbf{No Class -- Spring Recess} \\
+    R - Mar 22 &       & \textbf{No Class -- Spring Recess} \\
+    \hline
+    T - Mar 27 &  9 \ra & Single shooting revisited \\
+    R - Mar 29 &        & Multiple shooting part one \\
+    T - Apr 3  & 10 \ra & Multiple shooting part two \\
+    \hline
+    R - Apr 5  & 9  \da \ F1 \ra & Final Project Overview \\
+    T - Apr 10 &                 & Direct collocation part one \\
+    \hline
+    R - Apr 12 & 10 \da & Direct collocation part two \\
+    T - Apr 17 & F2 \ra & Advanced topic: TBD  (analytic gradients?) \\
+    \hline
+    R - Apr 19 & F1 \da & Special topic:  TBD  (guest lecture?) \\
+    T - Apr 24 &        & Trajectory optimization in the real world; In-class office hours for final project \\
+    R - Apr 26 & F2 \da & In-class presentations and discussion \\
+    T - May 1  &        & \textbf{No Class -- Reading Period} \\
+    \hline
+    \end{tabular}
+\end{table}
+
+
+
+%=================================================
+\end{document}
+\grid
