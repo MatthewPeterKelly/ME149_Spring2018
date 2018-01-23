@@ -12,12 +12,17 @@
 
 ## Introduction: who are the students?
 - Poll: What type of student?   {junior, senior, master, phd... }
+  - roughly 2/3 graduate students, 1/3 undergraduate students
 - Poll: What major?   {ME, ECE, CS, ...}
+  - roughly 2/3 mechanical engineering majors
 
 ## Introduction: optimal control for robotics
 - question to students: what is a robot?
+  - a system that can "sense - think - act"
 - question to students: what is control?
+  - the "think" part of the system  (in vague terms)
 - question to students: what is optimal control?
+  - a controller that minimizes some cost function: achieves a desired behavior
 - path planning example
   - how do you choose which path to walk between two points?
   - optimal policy vs optimal trajectory
@@ -85,12 +90,16 @@
 
 ## In-class Polls: learn about the student technical background
 - Who has taken a basic controls class?
+  - most of the class
 - Who has taken an advanced controls class?
+  - a few students
 - Who has taken numerical methods?
+  - a few students
 - Who has taken dynamics?
 - Who has taken a CS programming course?
 - What operating system do you primarily use?  {windows, mac, linux}
 - Who has heard of git and GitHub? Do you know how to use git?
+  - about 2/3 of students have heard of GitHub, about 1/3 have used git
 
 ## Discuss the course website (on GitHub)
 - Content for the course will be hosted on GitHub

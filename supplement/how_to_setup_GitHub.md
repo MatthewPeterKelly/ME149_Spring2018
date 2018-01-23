@@ -26,8 +26,8 @@ The git protocol makes it easy to keep all of the files in sync on everyone's co
 - Click `Sign into GitHub.com`
 - Log in to GitHub when it pops up the form - make sure that you've verified your email address
 - Configure git for your computer - this sets information for your public commits
-  - Keep the default user name, or make it *Firstname LastName*
-  - Keep the default email! It is there to protect you from spam email robots.
+  - The email and username will be public if you post any commits
+  - These settings can be changed later
 - Finish setup
 
 ## Clone the ME149 repository
@@ -52,6 +52,12 @@ The git protocol makes it easy to keep all of the files in sync on everyone's co
   - you made changes to a file that would be overwritten by the pull
     - option one: there is a panel on the left that shows changes. You can right click and select `discard all changes`.
     - option two: commit the changes to a new branch. This requires learning some git skills, a topic for another tutorial.
+
+## Setting up git on your computer (all operating systems)
+GitHub Desktop does not have access to all features in git.
+This is fine for basic uses, but ultimately you might want to gain access to the full git feature set by installing it on your computer directly.
+- [Atlassian Tutorial: install git](https://www.atlassian.com/git/tutorials/install-git)
+- Leave the default options during installation unless you know what you are doing.
 
 ## Comments:
 - Another good GUI for managing git repos is [SourceTree](https://www.sourcetreeapp.com/) by Atlassian

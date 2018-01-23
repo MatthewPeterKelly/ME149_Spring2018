@@ -1,0 +1,70 @@
+% This file contains the header data for all assignment files
+\documentclass[onecolumn]{article}
+
+\usepackage{bbold}   %Get fancy double struck math notation for sets
+\usepackage{cite}
+\usepackage{cleveref}
+\usepackage{color}
+\usepackage{courier}   %Have code written out nicely
+\usepackage{float}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{graphicx} % handles graphics and figures
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{mathtools,bm}
+
+\catcode`\^^M=10      %  Makes blank lines meaningless, force use of \par
+
+\definecolor{magenta}{rgb}{0.8,0.0,1.0}
+\definecolor{darkGreen}{rgb}{0.0,0.4,0.0}
+\definecolor{blue}{rgb}{0.0, 0.0, 0.9}
+\definecolor{purple}{rgb}{0.7, 0.0, 0.7}
+\definecolor{darkGreen}{rgb}{0.0,0.4,0.0}
+
+\newcommand{\quotes}[1]{``#1''}
+\newcommand{\todo}[1]{{\color{magenta}\par {[{\bf ToDo: } {\em #1}} ] \\    }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTE:
+%
+% The following block of commands is used to format Matlab code blocks for the
+% listings package. This block of code is based on two examples:
+%  -->   https://gist.github.com/eyliu/120689
+%  -->   http://links.tedpavlic.com/ascii/homework_new_tex.ascii
+%
+% Import file block using:
+%   \lstinputlisting{fileName.m}
+%
+\lstloadlanguages{Matlab}
+%
+\lstset{language=Matlab,                        % Use MATLAB
+        frame=single,                           % Single frame around code
+        basicstyle=\small\ttfamily,             % Use small true type font
+        keywordstyle=[1]\color{blue}\bfseries,  % MATLAB functions bold and blue
+        keywordstyle=[2]\color{purple},         % MATLAB function arguments purple
+        keywordstyle=[3]\color{blue}\underbar,  % User functions underlined and blue
+        identifierstyle=,                       % Nothing special about identifiers
+                                                % Comments small dark green courier
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{darkGreen}\small,
+        stringstyle=\color{darkGreen},            % Strings are purple
+        showstringspaces=false,                 % Don't put marks in string spaces
+        tabsize=4,                              % 4 spaces per tab
+        %
+        %%% Put standard MATLAB functions not included in the default
+        %%% language here
+        morekeywords={xlim,ylim,var,alpha,factorial,poissrnd,normpdf,normcdf},
+        %
+        %%% Put MATLAB function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        %%% Put user defined functions here
+        morekeywords=[3]{FindESS, homework_example},
+        %
+        morecomment=[l][\color{blue}]{...},     % Line continuation (...) like blue comment
+        numbers=left,                           % Line numbers on left
+        firstnumber=1,                          % Line numbers start with line 1
+        numberstyle=\tiny\color{blue},          % Line numbers are blue
+        stepnumber=5                            % Line numbers go in steps of 5
+        }
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

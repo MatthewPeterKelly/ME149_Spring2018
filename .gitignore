@@ -4,6 +4,10 @@
 ## Documents (by default)
 **/*.pdf
 
+## Images (by default)
+**/*.jpg
+**/*.png
+
 ## LaTeX autogen
 **/*.synctex.gz
 **/build/

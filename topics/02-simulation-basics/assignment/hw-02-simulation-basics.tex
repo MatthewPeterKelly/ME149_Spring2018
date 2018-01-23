@@ -1,0 +1,142 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Assignment 2:  Simulation Basics}
+\date{Assigned:  Jan. 23  ---  Due:  Feb. 1}
+\author{Optimal Control For Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+%=================================================
+
+\section*{Introduction}\
+
+In this assignment you will implement Euler's method and
+use it to simulate two simple dynamical systems.
+The first system is an ideal passive pendulum,
+one of the simplest non-linear systems that corresponds to a physical mechanism.
+The second system is the Lorenz system,
+which is highly non-linear and generates the famous Lorenz Attractor.
+
+\par This assignment includes a set of template files to guide you in writing the
+simulation function, dynamics functions, and top-level code to generate the plots.
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{0em}
+  \item \texttt{EulerMethodSimulate.m} --- simulate a dynamical system using Euler's method
+  \item \texttt{PendulumDynamics.m} --- compute the system dynamics for a simple pendulum
+  \item \texttt{LorenzDynamics.m} --- compute the system dynamics for the Lorenz system
+  \item \texttt{prob\_03\_studentName.m} --- run the simulation of the pendulum and make plots
+  \item \texttt{prob\_04\_studentName.m} --- run the simulation of the Lorenz system and make plots
+\end{itemize}
+
+You will need to complete each of these files by replacing the \texttt{\%\%\%\% TODO} markings with
+correct implementations in each case. There are detailed comments throughout the template code
+to indicate what each section of the code should do. The template files are described in
+detail at the end of this assignment, and included as stand-alone Matlab files as well.
+
+\section*{Write-Up}
+
+You will submit a single (short) write-up for this assignment:
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+  \item Header: full name, studentName, date, assignment name and number
+  \item List any other students that you worked with.
+  \item How long did this assignment take you?
+\end{itemize}
+
+\section*{Deliverables}
+\begin{itemize}
+  \item Fully implement all five template files and submit them.
+  \item Submit the plots that you generated for each simulation: \\
+        \texttt{prob\_03\_studentName.pdf}   and   \texttt{prob\_04\_studentName.pdf}
+  \item Submit the write-up for the assignment:   \texttt{hw\_02\_studentName.txt}
+  \item All code should be clearly written and well documented. Figures should include labels and titles.
+  \item All files should besubmitted through Tufts Trunk (as a single compressed file)
+\end{itemize}
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+\pagebreak
+\section*{\texttt{EulerMethodSimulation.m}}
+
+The key line that you will write in this file will implement Euler's Method for integration,
+given below, where $\bm{z}_k$ is the state at the current time step, $\bm{z}_{k+1}$ is the state
+at the next time step, $h$ is the duration of the time step, and $\dot{\bm{z}}_k$ is the time-derivative
+of the state at the current time step.
+Notice that this function is general-purpose: it can be used to simulate any dynamical system.
+
+\begin{equation}
+  \bm{z}_{k+1} = \bm{z}_k + h \dot{\bm{z}}_k
+\end{equation}
+
+\lstinputlisting{EulerMethodSimulation.m}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+\pagebreak
+\section*{\texttt{PendulumDynamics.m}}
+
+The dynamics of a simple pendulum can be modeled as:
+
+\begin{equation}
+  \ddot{q} = -\sin(q)
+\end{equation}
+
+Euler's Method for simulation, like most simulation methods, requires the dynamical system to be
+in first-order form. To to this, we will introduce a new variable $\omega = \dot{q}$ to represent
+angular rate. This allows us to write a second-order equation as a system of two first-order equations:
+
+\begin{align}
+  &  \dot{q} = \omega \\
+  &  \dot{\omega} = -\sin(q)
+\end{align}
+
+You will notice a tilde (\texttt{\~}) in the argument list for this function.
+This tells Matlab that our function does not use this argument
+and allows it the compiler to do some optimization to improve run-time speed.
+We keep the argument here beause simulation functions
+(such as \texttt{EulerMethodSimulate()} and \texttt{ode45()})
+often require the first argument of the dynamics function to be time.
+
+\lstinputlisting{PendulumDynamics.m}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+\pagebreak
+\section*{\texttt{LorenzDynamics.m}}
+
+This function implements the equations for the Lorenz system. For a special combination of
+parameters this system produces a famous fractal known as the Lorenz attractor.
+The equations for this system are given below, where $x$, $y$, and $z$ are the state of the
+system, and $\sigma=10$, $\rho=29$, and $\beta = 8/3$ are system parameters.
+
+\begin{align}
+  &  \dot{x} = \sigma (y-x) \\
+  &  \dot{y} = x (\rho - z) - y \\
+  &  \dot{z} = x y - \beta z
+\end{align}
+
+\lstinputlisting{LorenzDynamics.m}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+\pagebreak
+\section*{\texttt{prob\_03\_studentName.m}}
+
+This function sets up and runs a simulation of the simple pendulum system and then generates a plot
+of the resulting simulation. Let's assume that the pendulum is using SI units.
+Follow the directions in the template code for simulation and plotting details.
+When you submit this file you should replace \texttt{studentName} with your full name.
+
+\lstinputlisting{prob_03_studentName.m}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+\pagebreak
+\section*{\texttt{prob\_04\_studentName.m}}
+
+This function sets up and runs a simulation of the Lorenz System and then generates a plot of the
+Lorenz attractor. We will use dimensionless units.
+Follow the directions in the template code for simulation and plotting details.
+
+\lstinputlisting{prob_04_studentName.m}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+\pagebreak
+
+%=================================================
+\end{document}
