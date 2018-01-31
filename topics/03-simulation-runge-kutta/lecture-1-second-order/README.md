@@ -1,4 +1,4 @@
-# Lecture: Second-Order Runge--Kutta
+# Lecture 03: Second-Order Runge--Kutta
 
 This lecture will start with a Matlab coding demo:
 starting from scratch use Euler's method to simulate a simple pendulum.

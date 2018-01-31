@@ -1,4 +1,4 @@
-# Lecture: Simulation Basics
+# Lecture 02: Simulation Basics
 
 In this lecture we will introduce Euler's method.
 We will cover an intuitive and mathematical derivation,
