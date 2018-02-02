@@ -1,5 +1,5 @@
 function dz = PendulumDynamics(~, z)
-% dz = PendulumDynamics(t, dz)
+% dz = PendulumDynamics(t, z)
 %
 % This function computes the dynamics for a simple pendulum.
 % All parameters are set to unity and there is no friction.

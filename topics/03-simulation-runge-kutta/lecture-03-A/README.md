@@ -53,7 +53,7 @@ of the family of second-order Runge-Kutta methods.
 ## Derivation of these equations?
 - Based on:
   - reduce the analytic integral to quadrature, with two function evaluations
-  - compute the taylor series of the solution to second-order (need the chain rule)
+  - compute the Taylor series of the solution to second-order (need the chain rule)
   - set the two expressions equal to each other to compute `w1` and `w2` in terms of `alpha`
 
 ## Continue with live-coding demo:
