@@ -2,7 +2,6 @@ function dz = simplePendulumDynamics(z, u, param)
 % dz = simplePendulumDynamics(z, u, param)
 %
 % This function computes the dynamics for a simple pendulum.
-% All parameters are set to unity and there is no friction.
 %
 % INPUTS:
 %   z = [2, nTime] = [angle; rate] = current state of the system
@@ -16,7 +15,7 @@ function dz = simplePendulumDynamics(z, u, param)
 %   dz = [2, nTime] = [rate, accel] = time-derivative at current state
 %
 % NOTES:
-%   q = angle of the pendulum
+%   q = angle of the pendulum (measured from stable configuration)
 %   dq = w = angular rate of the pendulum (derivative of angle)
 %   ddq = dw = angular acceleration of the pendulum (derivative of rate)
 %

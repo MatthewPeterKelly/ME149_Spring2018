@@ -69,10 +69,15 @@ eqn2_inertia = cross2d(p2 - p1, m2 * ddp2);
 % solve equations of motion:
 vars = [ddq1; ddq2];
 eqns = simplify([eqn1_torques - eqn1_inertia;  eqn2_torques - eqn2_inertia]);
-[MM, ff] = equationsToMatrix(eqns, vars);
-soln = simplify(MM \ ff);
-ddq1_soln = soln(1);
-ddq2_soln = soln(2);
+solnDyn = linSolveDynSys(eqns, vars);
+ddq1_soln = solnDyn(1);
+ddq2_soln = solnDyn(2);
+
+% solve the inverse dynamics:
+ctrl = [u1; u2];
+solnInv = linSolveDynSys(eqns, ctrl);
+u1_soln = solnInv(1);
+u2_soln = solnInv(2);
 
 % Compute the total energy in the system:
 U = simplify(m1 * g * dot(p1, j) + m2 * g * dot(p2, j));  % potential
@@ -87,6 +92,14 @@ matlabFunction(ddq1_soln, ddq2_soln, ...
                'Vars',{'q1', 'q2', 'dq1', 'dq2', 'u1', 'u2', ...
                        'm1', 'm2', 'd1', 'd2', 'g'});
 
+% Write the dynamics function (equations of motion)
+matlabFunction(u1_soln, u2_soln, ...
+               'File', 'autoGen_doublePendulumInvDyn.m', ...
+               'Outputs', {'u1','u2'}, ...
+               'Optimize', true, ...
+               'Vars',{'q1', 'q2', 'dq1', 'dq2', 'ddq1', 'ddq2', ...
+                       'm1', 'm2', 'd1', 'd2', 'g'});
+                   
 % Write the kinematics function:
 matlabFunction(p1(1), p1(2), p2(1), p2(2), ...
                dp1(1), dp1(2), dp2(1), dp2(2), ...
@@ -103,6 +116,11 @@ matlabFunction(E, T, U, ...
                'Optimize', true, ...
                'Vars',{'q1', 'q2', 'dq1', 'dq2',...
                        'm1', 'm2', 'd1', 'd2', 'g'});
-                   
+           
+% solve linear system:
+function soln = linSolveDynSys(eqns, vars)
+    [A, b] = equationsToMatrix(eqns, vars);
+    soln = simplify( A \ b);
+end
                    
                    
