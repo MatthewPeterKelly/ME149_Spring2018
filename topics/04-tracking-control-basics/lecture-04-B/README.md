@@ -1,11 +1,5 @@
 # Lecture - Nonlinear Tracking Control
 
-**NOTE:  This lecture outline is a draft.
-The final version will be posted before Thursday February 8.
-The content will be largely the same, but better organized and with some more
-details filled in.**
-
-
 ## HW 3 notes
 - if doing the butcher table:
   - there is a good list of methods on wikipedia:
@@ -18,9 +12,16 @@ details filled in.**
 
 ## Spline details
 - cubic hermite spline
-  - value and slope at each knot
-- cubic spline through points
-  - natural vs clamped
+  - position and velocity at each knot
+  - continuous position and velocity
+- natural cubic spline through points
+  - acceleration is zero at boundaries
+  - continuous position, velocity, and acceleration
+  - position at each knot
+- clamped cubic spline through points
+  - velocity is given at boundaries
+  - continuous position, velocity, and acceleration
+  - position at each knot
 - DEMO:
   - comparison of different splines
 
@@ -52,6 +53,14 @@ details filled in.**
   - this is slightly faster than differentiating each segment using `polyder`
 - can use Matlab `polyder` function for an individual polynomial (or spline segment)
 - code it yourself: use rules from basic calculus
+
+## Fitting spline to data:  supplemental topic
+- In class I mentioned that you can fit splines to data.
+  This is perhaps one of the simplest types of trajectory optimization.
+- I've included a full tutorial paper on the course website:
+  `ME149/supplement/fit-spline-to-data/spline_fitting_tutorial.pdf`
+- There is also a Matlab implementation in the code library:
+  `ME149/codeLibrary/splines/fitSplineToData.m`
 
 ## Inverse Dynamics:
 - given `xRef`, `vRef`, `aRef` compute `uRef`
@@ -103,8 +112,18 @@ details filled in.**
         http://groups.csail.mit.edu/robotics-center/public_papers/Tedrake10.pdf
     - There are many other methods as well.
 
-## Cost functions
-- path integral
-- position error
-- actuator effort
-- compute with simulation method
+## Path integral cost functions
+- Objective function that is of the form:
+- `J(z(t), u(t)) = integral(g(tau, z(tau), u(tau))) --- domain: [0, T], WRT tau`
+  - Notice that `J()` is a *functional*: it is a function that accepts a *function* as an argument
+  - `J()` is a scalar functional: it evaluates to a single real number.
+- Many different forms for the integrand `g()`
+  - one common example is "effort-squared"
+    - `g(t, z, u) = u^2`
+- Notice similarity between `g()` and the dynamics function `f()`:
+  - `z(k+1) = z(k) + integral(f(tau, z(tau), u(tau))) --- domain: [0, T], WRT tau`
+  - You can evaluate `J()` using the same simulation function that you used to compute the solution to the dynamics!
+  - In Matlab it is often faster to evaluate the objective function and the dynamics function at the same time
+    - this is done by creating a combined function: `[f(); g()]` which is then passed to the simulator
+- When used inside of a trajectory optimization, it is important that the differential equations for the cost function and the system dynamics are solved using the exact same method and step size.
+  - When not used inside of a trajectory optimization, it is possible to evaluate the integral cost function using any standard quadrature method. This assumes that you are given the reference trajectory.

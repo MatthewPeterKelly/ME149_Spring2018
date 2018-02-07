@@ -3,6 +3,10 @@
 ## Follow-up:
 - cover accuracy vs step size plot for different integration schemes
 
+## Background reading:  control of second-order systems:
+- MIT 2.003 Modeling Dynamics and Control, Spring 2005, course notes
+- [https://ocw.mit.edu/courses/mechanical-engineering/2-003-modeling-dynamics-and-control-i-spring-2005/readings/]
+
 ## Block move example: PD control
 - move a point-mass from an initial position `x0` to the origin
 - live Matlab demo
