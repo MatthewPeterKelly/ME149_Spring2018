@@ -1,0 +1,47 @@
+\section{Problem Statement}
+\label{sec:ProblemStatement}
+
+Simply put: fit a smooth function through a sequence of data points,
+\textit{e.g.} Figure \ref{fig:DataFittingExampleFigure}. \\
+More precisely:
+\begin{itemize}
+  \setlength\itemsep{0em}
+  \item \textbf{Given:} a time-stamped set of points in space.
+  \item \textbf{Find:} a smooth vector function.
+  \item \textbf{Minimize:} integral of curvature-rate-squared and sum or squared-error.
+  \item \textbf{Subject to:} value, slope, and curvature at the boundaries.
+\end{itemize}
+
+\par
+We will use $\bm{x}(t)$ to represent value as a function of time.
+The data set is $\{t_i, \bar{\bm{x}}_i\}$, which gives measured value at each time stamp.
+The time-domain of the data set is $[0, T]$.
+
+\subsection{Objective Function}
+
+The objective function is a weighted combination of two terms.
+The first is the sum of the squared-error between the candidate vector function and the points in the data set.
+The second is a smoothing-term, minimizing the integral of the third derivative of the function.
+
+\begin{equation}
+  \bm{J}\big(\bm{x}(t)\big) \; =   \;
+    \frac{T}{N}  \sum_{i=0}^N \big( \bm{x}(t_i) - \bar{\bm{x}}_i \big)^2
+     \; +   \; \alpha \! \int_0^T \! \dddot{\bm{x}}^2(t) \, dt
+  \label{eqn:continuousObjectiveFunction}
+\end{equation}
+
+\subsection{Constraints}
+
+The vector function $\bm{x}(t)$ must be smooth: continuous value, slope, and curvature.
+\begin{equation}
+  \bm{x}(t) \in \mathcal{C}^2
+\end{equation}
+
+We also require that the value, slope, and curvature be prescribed at the initial and final times.
+In practice these boundary constraints can be dropped if not required by the end-user.
+
+\begin{align}
+  \bm{x}(0) = \bm{x}_0  & \quad &  \bm{x}(T) = \bm{x}_T \\
+  \dot{\bm{x}}(0) = \dot{\bm{x}}_0  & \quad & \dot{\bm{x}}(T) = \dot{\bm{x}}_T \\
+  \ddot{\bm{x}}(0) = \ddot{\bm{x}}_0  & \quad & \ddot{\bm{x}}(T) = \ddot{\bm{x}}_T
+\end{align}
