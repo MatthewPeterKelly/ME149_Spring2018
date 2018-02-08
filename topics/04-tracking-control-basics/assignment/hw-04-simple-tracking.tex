@@ -9,28 +9,17 @@
 \maketitle
 %=================================================
 
-\section*{Introduction}
-
-\todo{Finish this draft! }
-\todo{The requirements for the assignment will remain unchanged, but I will
-      add more clarification around the details. Final version will be posted
-      before Thursday Feb 8. Please email me with any questions or comments
-      regarding the assignment. }
-
-
 \section*{Part One: Cubic Spline Math}
 
-Cubic splines are commonly used to represent trajectories.
-Cubic splines are useful because they are easy to work with and
-can be constructed with a continuous first derivative (unlike linear splines).
-Rather than construct an entire spline, we will focus on a single cubic segment $x(t)$, shown below.
+Suppose that you are given a single segment of a cubic spline, $x(t)$, shown below.
 
 \begin{equation}
 x(t) = \sum_{i=0}^3 c_i t^i = c_0 + c_1 t + c_2 t^2 + c_3 t ^ 3
 \end{equation}
 
-A cubic Hermite spline is a cubic spline that is fully defined by the value and slope
-at each knot point. These boundary conditions are given below.
+\textbf{1a:} Compute the spline coefficients $c_i$ in terms of the boundary conditions shown below. \\
+
+\vspace{-1em}
 
 \begin{align}
 x(0) &= x_0
@@ -42,111 +31,210 @@ x(h) &= x_h
 \dot{x}(h) &= v_h
 \end{align}
 
-\textbf{1a:} Given the boundary conditions and spline equation above,
-compute the spline coefficients $c_i$ in terms of the boundary conditions. \\
+\textbf{1b:} Compute the acceleration $\ddot{x}(t)$ at each boundary ($t=0$ and $t=h$)
+in terms of the boundary conditions.\\
 
-\textbf{1b:} Cubic splines are often constructed with a constraint that the
-acceleration at each boundary is continuous. Compute the acceleration at each
-boundary: $\ddot{x}(0)$ and $\ddot{x}(h)$. You may write acceleration in terms
-of either the boundary conditions or the spline coefficients. \\
-
-\textbf{Note:} You may perform these calculations either by hand or using the
-Matlab symbolic toolbox. If working by hand, then please scan your calculations
-(this can typically be done using a simple app on your phone)
-and then upload them as a pdf.
-If using the Matlab symbolic toolbox, them upload your derivation script.
-The script should print the solution to the command prompt; please copy this
-output directly into the comments of the script.
-
-\section*{Part Two: Pendulum Swing-Up}
-
-Construct a piecewise-polynomial reference trajectory for a simple pendulum.
-The trajectory should be in the form of three pp splines:
-\texttt{qRef} (angle),
-\texttt{dqRef} (rate), and
-\texttt{ddqRef} (accel).
-The trajectory should move the system from the
-stable equilibrium (\texttt{qRef(0) = 0}) to the
-unstable equilibrium configuration (\texttt{qRef(T) = pi}).
-The initial and final rates should be zero.
-This ``swing-up'' trajectory should take 3 seconds to complete.
-
-\par
-You may use any method that you like to construct the pp-spline,
-provided that it can be evaluated using the \texttt{ppval()} function in Matlab.
-A few possible options include:
-\texttt{spline}, \texttt{pchip}, \texttt{pwch},
-and \texttt{ME149/codeLibrary/splines/pwqh}.
-
-\par
-Make sure that your splines have \textit{consistent} derivatives: the
-the rate reference should be the derivative of the angle reference, and the
-acceleration reference should be the derivative of the rate reference.
-One way to achieve this is by constructing \texttt{qRef} first and then using
-the \texttt{ME149/codeLibrary/splines/ppDer} function in the code library
-to compute the derivatives for you.
-
-\par
-Design a proportional-derivative (PD) controller to track the set of
-reference trajectories. You may use any method that you like to tune the gains.
-The function\\
-\texttt{ME149/codeLibrary/control/secondOrderSystemGains}
-in the
-code library might be useful, although you are not required to use it.
-In addition to the feed-back controller, compute the feed-forward reference
-torque using the inverse dynamics for the pendulum.
-
-\par
-Use the simple pendulum dynamics model
-(\texttt{ME149/codeLibrary/simplePendulum/}) from the code library,
-with \texttt{param.freq = 1.0} and \texttt{param.damp = 0.0}.
-The library provides functions for both forward and inverse dynamics.
-
-\par
-It is often desirable to minimize the ``actuator effort'' along a trajectory.
-There are many models for actuator effort, but here we will use the torque-squared model.
-Note that the objective function $J()$ is a
-\textit{functional}: it is a function that takes another function as input.
+\textbf{1c:} Compute the value of the
+``minimum-jerk'' objective function for this segment in terms of the boundary conditions.
+Note that ``jerk'' is the technical term for the time-derivative of acceleration.
 
 \begin{equation}
-J\big(u(t)\big) = \int_0^T \! g(\tau) \, d\tau = \int_0^T \! u^2(\tau) \, d\tau
+  J(x(t)) = \int_0^h \! \dddot{x}(\tau) \, d\tau
 \end{equation}
 
-This type of objective function is a path-integral.
-When doing trajectory optimization, the correct way to evaluate a path integral is to
-solve it using the same method that you use for propagating the dynamics.
-This ensures that your results are self consistent, which will be important later.
-To do this, you construct a modified dynamics function at the start of your simulation,
-where the integrand $g()$ and the system dynamics $f()$ are stacked to form a single
-combined dynamics function that is passed to the simulator.
+\textbf{Note:}
+You may perform these calculations either by hand or using the Matlab symbolic toolbox.
+If you do the calculations by hand, then please
+scan\footnote{There are several phone apps that will easily scan a document and save to pdf.}
+your solution and upload it as a pdf.
+If you choose to use the Matlab symbolic toolbox then upload your derivation script.
+The script should print the solution to the command prompt;
+please copy this output directly into the comments of the script before submitting.
+Your file should be named either: \\
+\texttt{hw\_04\_studentName\_splineMath.pdf} \\
+\texttt{hw\_04\_studentName\_splineMath.m}
+
+\section*{Part Two: Tracking Controller Design}
+
+For this part of the assignment you will design a reference trajectory
+and implement a tracking controller for two model systems:
+a simple pendulum and a double pendulum.
+In both cases you will construct a reference trajectory that performs a
+swing-up maneuver, moving the pendulum from the state of minimum potential energy
+to maximum potential energy.
+
+\subsection*{kinematic reference trajectory design}
+
+For both systems you will be given boundary conditions:
+the state of the system at the initial and final time.
+Your job is to construct a piece-wise polynomial (PP)
+reference trajectory that satisfies those boundary conditions.
+The easiest way to do this is to construct a
+clamped cubic spline for the position (angle) reference using the
+Matlab \texttt{spline} command (see the help file for how to specify boundary slopes).
+You can then use the \texttt{ME149/codeLibrary/splines/ppDer} function in the code library
+to construct the velocity (anglular rate) and
+acceleration (angular acceleration) reference splines
+by differentiating the position spline.
 
 \par
-\textbf{2a:} Compute the torque-squared objective function for your reference trajectory.
-This should be done by calling your simulation function with the \texttt{dynFun} = $g()$.
+Use at least two segments in your spline (minimum of three knot points).
+Later in the class we will learn to select the position at the intermediate knot points
+using trajectory optimization. For now, you can just select them by hand.
 
-\textbf{2b:} Compute the torque-squared objective function for the simulation of the
-full closed-loop system using the controller (with both feed-back and feed-forward terms).
-Introduce an intentional perturbation to the initial conditions:
-the initial angle for the simulation should be 0.2 radians.
-This will allow the simulation to test the performance of your controller.
+\par
+Later in the assignment you will compute an objective function to evaluate the
+integral of the feed-forward torque squared along the reference trajectory.
+Experiment with your reference trajectory to see if you can modify the intermediate knot
+points to reduce the overall trajectory cost.
+The student who achieves the lowest overall objective function value (and has a correct solution)
+will receive two bonus points on this homework assignment.
+There will be one winner for the simple pendulum and another for the double pendulum.
+The maximum score on the assignment will be capped at 50 points.
 
-\todo{Requirements for plots and other output for submission.}
+\subsection*{feed-forward torque calculation}
 
-\section*{Part Three: Double Pendulum Swing-Up}
+Both the simple and double pendulum models include
+a function to copmute the inverse dynamics for the system.
+You can call the inverse dynamics inside of your tracking controller to
+compute a feed-forward torque term.
 
-Same as the single pendulum swing-up, but now apply those techniques to a
-more complicated system. The initial conditions now start with both links of the
-pendulum in stable equilibrium (minimum potential energy) and end with both links
-in the unstable equilibrium (maximum potential energy). The path integral can be
-applied to both torque (which are added), and you can simply write a PD controller
-for each joint. As with the previous assignment, set all parameters in the double
-pendulum dynamics (link lengths, link masses, and gravity) to one.
+\subsection*{feed-back controller design}
 
-\section*{Implementation Details}
+The form of your controller will look something like:
 
-You should be able to create one (or more) functions that work for both the single and double pendulum.
-For example, the objective function should work for any number of torque inputs.
+\begin{equation}
+  u_{ref} = \text{invDyn}\big(x_{ref}(t), \, \dot{x}_{ref}(t), \, \ddot{x}_{ref}(t) \big)
+\end{equation}
+\begin{equation}
+  u = u_{ref} + K_p \cdot \big(x - x_{ref}(t)\big) + K_d \cdot \big(\dot{x} - \dot{x}_{ref}(t)\big)
+\end{equation}
 
+This type of controller is called an \textit{open-loop} trajectory tracking controller,
+because the reference trajectory does not depend on the state of the system.
+Notice that there is a still a feed-back term in the controller ---
+it is used to stabilize the system about the current reference.
+
+You may use any method to select the gains $K_p$ and $K_d$.
+Please include (as comments in your code) a description of how you selected the gains.
+Hand-tuning is an acceptable solution.
+The function
+\texttt{ME149/codeLibrary/control/secondOrderSystemGains}
+in the code library might be useful, although you are not required to use it.
+
+\subsection*{objective function calculation}
+
+Compute the torque-squared objective function for you candidate reference trajectory,
+defined below, where $T$ is the duration of the trajectory,
+$\bm{z}(t)$ is the state trajectory (position and velocity reference), and
+$\bm{u}(t)$ is the control trajectory (feed-forward torques).
+Note that $n$ is the number of actuators;
+$n=1$ for the simple pendulum and
+$n=2$ for the double pendulum.
+
+\begin{equation}
+  J(\bm{z}(t), \bm{u}(t))
+  = \int_0^T \! \norm{\bm{u}(\tau)}^2 \, d\tau
+  = \sum_{i=0}^n \int_0^T \! u_i(\tau)^2 \, d\tau
+\end{equation}
+
+% For this example, the objective function depends only on control,
+% although in general it can depend on time, state, and control.
+
+This objective function needs to be computed numerically.
+Unlike the solution to the dynamics, the objective function is purely dependent on
+time. This means that it can be computed using simple quadrature methods,
+such as the trapezoid rule or Simpson's rule.
+In Matlab, it can be computed using the \texttt{integral} command.
+
+\par
+Once we start doing trajectory optimization, it is important to compute the
+path integral using the exact same numerical method as was used to evaluate
+the system dynamics. There is an easy way to do this: just pass the integrand
+of the objective function to your simulation function!
+
+For this assignment you may use either technique to numerically evaluate the objective function.
+
+\subsection*{simulation of the closed-loop system}
+
+For the final part of the assignment you will run a simulation of your closed-loop system,
+using the tracking controller to follow your reference trajectory.
+You may use any simulation method that you like, such as those from your previous assignments,
+the solutions in the code library, or Matlab functions such as \texttt{ode45}.
+
+\par Introduce a small tracking error at the start of the trajectory.
+This will make it easier to see if your tracking controller is effective.
+Choose the size of the perturbation to be $0.1$ radians in each initial angle: \\
+\texttt{q0 = ppval(qRef, 0) + 0.1;}
+The initial rate should be zero, both for the simulation and the reference trajectory.
+
+\subsection*{plots}
+
+Create one figure for each system, with a set of plots that show the angle(s),
+rate(s), and torque(s).
+Make each figure full screen and then save as a pdf with the file name:\\
+\texttt{hw\_04\_studentName\_simplePendulum.pdf} \\
+\texttt{hw\_04\_studentName\_doublePendulum.pdf} \\
+
+\par
+The top row of plots should show the reference and measured (simulated) angles,
+the middle row should show the reference and measured angular rates,
+and the bottom row should show the feed-forward and measured torques.
+There should be one column of subplots per joint.
+Include axis labels, titles, and legends for each subplot.
+The title for the torque plots should include the value of the objective function
+for your reference trajectory.
+
+\subsection*{simple pendulum model}
+
+The code for the simple pendulum model is in the code library:
+(\texttt{ME149/codeLibrary/simplePendulum/}).
+For this assignment you should set the parameters:
+ \texttt{param.freq = 1.0} and \texttt{param.damp = 0.0}.
+
+\par The swing-up maneuver should take $T = 3$ seconds to complete.
+The pendulum should start at rest in the stable equilibrium
+and finish at rest in the unstable equilibrium.
+
+\begin{align}
+  &q(0) = 0   \quad & \quad   \dot{q}(0) = 0 \\
+  &q(T) = \pi \quad & \quad \dot{q}(T) = 0
+\end{align}
+
+\subsection*{double pendulum model}
+
+The code for the double pendulum model is in the code library:
+(\texttt{ME149/codeLibrary/doublePendulum/}).
+For this assignment you should set all of the parameters to one.
+
+\par The swing-up maneuver should take $T = 5$ seconds to complete.
+Both pendulums should start at rest in the stable equilibrium
+and finish at rest in the unstable equilibrium.
+
+\begin{align}
+&q_1(0) = 0   \quad & \quad   q_2(0) = 0
+\quad\quad\quad & \quad\quad\quad
+\dot{q}_1(0) = 0   \quad & \quad   \dot{q}_2(0) = 0  \quad\\
+&q_1(T) = \pi   \quad & \quad   q_2(T) = \pi
+\quad\quad\quad & \quad\quad\quad
+\dot{q}_1(T) = 0   \quad & \quad   \dot{q}_2(T) = 0 \quad
+\end{align}
+
+
+\section*{Deliverables}
+
+Upload all of the Matlab code that you wrote for this assignment to Trunk,
+along with the pdf files for each of the two figures and
+your solution to the spline math problems.
+
+\par
+The entry-point file for your two simulations should be called
+\texttt{hw\_04\_studentName.m}.
+Create a header block in this file (see template)
+that includes your name,
+a list of collaborators and references,
+how long the assignment took to complete, and
+concludes with a brief outline of your code.
 
 %=================================================
 \end{document}
