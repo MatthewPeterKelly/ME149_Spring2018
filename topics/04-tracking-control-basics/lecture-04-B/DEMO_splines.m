@@ -41,19 +41,19 @@ t = linspace(tGrid(1), tGrid(end), 400);
 methodList = fieldnames(pp);
 for iMethod = 1:length(methodList)
     method = methodList{iMethod};
-   
+
     % position:
     subplot(3,1,1); hold on;
     plot(t, ppval(pp.(method).x, t), 'LineWidth', 2);
-    
+
     % velocity
     subplot(3,1,2); hold on;
     plot(t, ppval(pp.(method).v, t), 'LineWidth', 2);
-    
+
     % acceleration
     subplot(3,1,3); hold on;
     plot(t, ppval(pp.(method).a, t), 'LineWidth', 2);
-    
+
 end
 
 % Add annotations:
@@ -79,10 +79,3 @@ title('curvature');
 legend(methodList,'Location','NorthEastOutside')
 linkaxes(hSub,'x');
 axis tight;
-
-
-
-
-
-
-
