@@ -1,3 +1,5 @@
+function DEMO_simpleBlockMove()
+%
 % DEMO:  simple block move
 %
 % This demo shows how to use a simple PD controller to move a point mass
@@ -8,8 +10,8 @@
 %   - experiment with changing all of the parameters: see what happens!
 %
 % Examples:
-% 
-%   - set the damping (xi) to each of the following values: 
+%
+%   - set the damping (xi) to each of the following values:
 %       xi = 0  --> no damping = oscillate forever
 %       xi = 0.2  --> under-damped: slowly decaying oscillations
 %       xi = 0.8  --> under-damped: rapidly decaying oscillations
@@ -25,7 +27,7 @@
 %   will behave exactly like a linear system. As uMax is reduced you will
 %   eventually notice that it clips the actuation for the beginning of the
 %   simulation. When this occurs we get two issues:
-%   
+%
 %       1) actuator saturation is handled with a simple clamping function,
 %       which introduces a discontinuity in the controller. This means that
 %       the dynamics that are passed to ode45 are now discontinuous. As a
@@ -45,15 +47,13 @@
 %       the behavior will be. For example, it is possible to get an
 %       overdamped controller to overshoot, even though this will never
 %       happen for a truely linear system.
-%   
+%
 %   - What happens if you set a non-zero reference velocity? The system
 %   will never reach its target! There is no steady-state solution where
 %   you can satisfy a constant position and a non-zero constant velocity.
 %   As a result, you will get a steady-state error in both position and
 %   velocity.
 %
-
-clc; clear;
 
 % Add the code library to the current path
 run('../../../codeLibrary/addLibraryToPath.m');
@@ -70,7 +70,7 @@ uMax = 100.0;  % maximum actuator force  (nonlinearity)
 xi = 1.0;  % damping ratio
 wn = 5.0;  % undamped natural frequency
 
-% Compute controller gains: 
+% Compute controller gains:
 %     >> help secondOrderSystemGains   % from ME149/codeLibrary/
 %  --> this could also be achieved with the `place()` function in Matlab
 Kp = - wn * wn;
@@ -109,6 +109,7 @@ title([systemName, 'Position']);
 legend('xRef','x');
 
 h2 = subplot(3,1,2); hold on;
+%
 plot(tSpan, vRef*[1,1],'k--','LineWidth',2);
 plot(tSoln, vSoln, 'r-','LineWidth',2);
 xlabel('time (s)');
@@ -126,6 +127,8 @@ title([systemName, 'Force']);
 
 linkaxes([h1,h2],'x');
 
+end
+
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 function u = simpleLinearController(z, Kp, Kd, xRef, vRef, uMax)
@@ -142,4 +145,3 @@ u (u > uMax) = uMax;
 u (u < -uMax) = -uMax;
 
 end
-

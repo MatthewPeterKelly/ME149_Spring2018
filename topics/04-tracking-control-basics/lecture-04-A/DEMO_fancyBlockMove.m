@@ -1,6 +1,8 @@
+function DEMO_fancyBlockMove()
+%
 % DEMO:  fancy block move
 %
-% This demo shows how to use a simple reference trajectory to move a 
+% This demo shows how to use a simple reference trajectory to move a
 % point mass between two points.
 %
 % Students: Experiment with all of the parameters!
@@ -26,7 +28,7 @@ uMax = 100;  % maximum actuator force  (nonlinearity)
 xi = 1.0;  % damping ratio
 wn = 8.0;  % undamped natural frequency
 
-% Compute controller gains: 
+% Compute controller gains:
 %     >> help secondOrderSystemGains   % from ME149/codeLibrary/
 %  --> this could also be achieved with the `place()` function in Matlab
 Kp = - wn * wn;
@@ -89,6 +91,8 @@ title([systemName, 'Force']);
 
 linkaxes([h1,h2],'x');
 
+end
+
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 function [u, xRef, vRef] = linearTrackingController(t, z, Kp, Kd, xRefPp, vRefPp, uMax)
@@ -109,4 +113,3 @@ u (u > uMax) = uMax;
 u (u < -uMax) = -uMax;
 
 end
-
