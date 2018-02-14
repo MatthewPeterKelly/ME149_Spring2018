@@ -1,0 +1,83 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Assignment 5:  Quadrotor Control via LQR}
+\date{Assigned:  Feb 13  ---  Due:  Feb 27}
+\author{Tufts ME 149:  Optimal Control For Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+%=================================================
+
+\section*{Introduction}
+
+In this assignment you will design two controllers for a
+planar model of a quadrotor helicopter.
+The first controller will be designed using infinite-horizon LQR and
+will be used to regular the state of the quadrotor in a stationary hover.
+The second controller will be designed using finite-horizon (trajectory) LQR
+and will stabilize an arbitrary reference trajectory that starts and ends in
+a static hover.
+
+\par
+Unlike previous assignments, you will not need to submit any plots.
+Instead, for each part of the assignment you will submit a Matlab function
+that returns a function handle for a feedback controller.
+Your controller will be evaluated by a set of automated unit tests.
+These tests will run simulations of the closed loop system with a variety of
+different perturbations, disturbances, and other error sources.
+
+\par
+You should write your own test scripts to ensure that your controllers work.
+There are no direct requirements on these tests, although you should submit them
+along with your other code. A few things that you could test,
+
+\section*{Planar Quadrotor Model}
+
+This assignment is centered around controlling a planar quadrotor model.
+All of the dynamics functions that you will need are provided in the ME-149
+code library:\\
+\texttt{ME149/codeLibrary/modelSystems/planarQuadrotor/}.
+
+\par
+There are several parameters for the quadrotor. Your controller design function
+should work for any valid set of parameters, but you may choose the following
+set of nominal values for your tests:
+\texttt{param.m = 0.4}, \texttt{param.w = 0.4}, \texttt{param.g = 10}
+
+\par
+In addition to the dynamics functions, the code library also provides a variety
+of useful diagnostics tools for the quadrotor. For example, you can visualize the
+output of a simulation using the
+\texttt{planarQuadrotorPlot()} to generate a plot of the state and control versus time,
+or \texttt{planarQuadrotorAnimate()} to generate an interactive animation.
+
+\par
+For the purposes of testing, I have included a special version of the dynamics
+function:\\
+\texttt{planarQuadrotorRealDyn()} that implements a more realistic
+version of the dynamics. In particular, it adds a random disturbance force that
+is a rough proxy for wind. By default it will always use the same disturbance,
+but you can pass a seed to the random number generator to test additional disturbances.
+You can also adjust the magnitude of the disturbances (see the help file for details).
+
+
+\section*{Part One: Hover Controller}
+
+For the first part of this assigment you will need to implement the file
+\texttt{getHoverController.m}, included below. The output of this function is
+a feedback controller (as a function handle) that can be passed into a simulation.
+
+Also write a test for the controller (\texttt{TEST\_getHoverController.m}).
+This function (or script) should generate one or more simulations that test
+your controller and demonstrate that it is reliable.
+
+\pagebreak
+\lstinputlisting{getHoverController.m}
+
+\section*{Part Two: Trajectory Tracking}
+
+\todo{The second part of the assignment will be posted on Feb 15, 2018}
+
+%=================================================
+\end{document}

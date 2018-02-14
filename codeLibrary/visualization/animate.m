@@ -58,17 +58,18 @@ SIM_TIME = START_TIME;
 SIMULATION_COMPLETE = false;
 
 % Set up the figure, and attach keyboard events.
-fig = figure(P.figNum); close(fig); fig = figure(P.figNum);
+fig = figure(P.figNum);
 set(fig,'KeyPressFcn',@keyDownListener)
 
 tic;    %Start a timer
 timeBuffer(1:3) = toc;
-while SIM_TIME < t(end);
+while SIM_TIME < t(end)
     
     %Interpolate to get the new point:
     xNow = interp1(t',x',SIM_TIME,'linear','extrap')';
     
     %Call the plot command
+    cla
     feval(P.plotFunc,SIM_TIME,xNow);
     drawnow;
     
