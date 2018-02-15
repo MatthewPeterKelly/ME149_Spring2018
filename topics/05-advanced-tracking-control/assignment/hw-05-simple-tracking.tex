@@ -77,7 +77,44 @@ your controller and demonstrate that it is reliable.
 
 \section*{Part Two: Trajectory Tracking}
 
-\todo{The second part of the assignment will be posted on Feb 15, 2018}
+The second part of this assignment is similar to the first, except that now you
+will design a trajectory tracking controller instead of a hovering controller.
+As with the first part, you do not need to submit plots - instead you will
+implement two matlab functions: \\
+\texttt{getTrackingController.m} \\
+\texttt{trajectoryLqr.m} \\
+
+\par
+The first function will design a trajectory tracking controller,
+and the second function computes the time-varying LQR gains along a reference trajectory.
+The details for implementation are included in the files.
+Your controller will be evaluated by running it through a series of automated
+test simulations.
+
+\par
+You should thoroughly test you controller before submitting to make sure that it works.
+Submit the test script (\texttt{TEST\_getTrackingController.m}) to Trunk along with the rest of your code.
+The only requirement for this test script is that it
+should demonstrate that you controller works by running one or more simulations
+and then generating some meaningful output.
+
+\par
+The assignment includes an single reference trajectory that guides the quadrotor
+through a back-flip while moving horizontally between two static hover poses.
+The function \texttt{importReferenceTrajectory.m} can be used to import this data and convert
+it into a useful format.
+
+\section*{Write-Up}
+
+In addition to the Matlab files listed above, please also upload a short write-up
+for this assignment: \\
+\texttt{hw\_05\_studentName\_writeup.txt}
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+  \item Header: full name, date, assignment name and number
+  \item List any other students that you worked with.
+  \item How long did this assignment take you?
+  \item Briefly describe your approach to testing your controllers.
+\end{itemize}
 
 %=================================================
 \end{document}
