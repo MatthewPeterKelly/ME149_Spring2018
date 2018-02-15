@@ -31,6 +31,46 @@
   - For more details, see the MIT open-course notes:
     - https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-832-underactuated-robotics-spring-2009/readings/MIT6_832s09_read_ch01.pdf
 
+
+## NONHOLONOMIC vs UNDER ACTUATED   (by Andy Ruina)
+```
+Both have to do with one space being smaller than another.
+One is about velocitites vs configurations the other about
+actuators vs velocities.
+
+In general one is interested in systems like this
+
+\dot x  =  f(x,t) + u.   (n equations)
+
+    x = state
+    u = controls
+
+In this first-order context, I don’t know what either of the words mean.
+
+As best I know and understand, both of these ideas are generally applied to
+second order systems like this:
+
+\dot x = g(x,t) * v         (n  equations)
+\dot v = f(x,v,t)  + u    (m  equations)
+
+    x + v = state ( n +m )
+    x = configuration (n)
+    v = generalized velocity  (m)
+    u = controls  (j independent ones of them)
+
+In a non-holonomic system, after constraints have been applied, n>m.
+In an underactuated system,   j < m.  More strictly: velocity space not spanned by actuators.
+
+The phrase ‘non-holonomic constraint’ means a constraint on a system
+like this that reduces the dimension of the velocity space more than the
+configuration space.
+
+Simple examples:
+
+- A robot arm that has more joints than motors is underactuated.
+- A chaplygen sleigh (American grocery cart), no matter how it is actuated, is non-holonomic.
+```
+
 ## Hierarchical control:
 - nested controllers
   - typically operating on different time scales
