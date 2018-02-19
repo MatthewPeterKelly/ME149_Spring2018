@@ -1,5 +1,5 @@
-function hoverController = getHoverController(xRef, vRef, param)
-% hoverController = getHoverController(xRef, vRef, param)
+function hoverController = getHoverController(xRef, yRef, param)
+% hoverController = getHoverController(xRef, yRef, param)
 %
 % This function designs a controller that will allow the quadrotor to
 % hover at a fixed position, despite the presence of various disturbances.
@@ -41,13 +41,13 @@ function hoverController = getHoverController(xRef, vRef, param)
 
 % Return a handle to the controller.
 TODO = 'replace this placeholder with a useful set of parameters';
-hoverController = @(z)( hoverController(z, TODO ) );
+hoverController = @(z)( planarQuadrotorHoverController(z, TODO ) );
 
 end
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-function u = hoverController(z, TODO )
+function u = planarQuadrotorHoverController(z, TODO )
 %
 % TODO: documentation for this function
 % TODO: additional arguments
