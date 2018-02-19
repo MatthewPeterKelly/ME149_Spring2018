@@ -1,0 +1,83 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Assignment 6:  Scalar Solvers}
+\date{Assigned:  Feb 20  ---  Due:  Feb 28 at 11:55pm}
+\author{Tufts ME 149:  Optimal Control For Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+%=================================================
+
+\section*{Introduction}
+
+In this assignment you will implement two iterative solvers in Matlab:
+Ridder's method for scalar root finding and the Golden Section Search for
+scalar optimization. Both methods start with a bracketed search interval.
+
+\section*{Ridder's Method}
+
+Ridder's method is an algorithm that searches for the root of a smooth function,
+starting with an interval that brackets the root.
+The method works by fitting an exponential through three data points on each
+iteration and then computing the root of that exponential.
+Ridder's method is described in section 9.2 of Numerical Recipes in C.
+
+\section*{Golden Section Search}
+
+The golden section search is method for robust optimization of a
+scalar function on a bounded (bracketed) interval.
+The algorithm keeps track of three points that are known to bracket the minimum.
+On each iteration it samples a new point such that the relative size of the
+two sub-intervals remains constant. It turns out that the relative size is
+given by the golden ratio, hence the name.
+See section 10.1 of Numerical Recipes in C for implementation details.
+
+\section*{Deliverables}
+
+Implement Ridder's method and the golden section search
+using the template files that are included with the assignment,
+and submit both of these files to Trunk.
+You code will be run through an automated unit test,
+so make sure that to test it yourself on several functions to be sure that it works.
+Carefully read the inputs and output of each function.
+
+\section*{Write-Up}
+
+In addition to the Matlab file for you root solver and your optimization,
+please also upload a short write-up for this assignment: \\
+\texttt{hw\_06\_studentName\_writeup.txt}
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+  \item Header: full name, date, assignment name and number
+  \item List any other students that you worked with.
+  \item List any other references that you used.
+  \item How long did this assignment take you?
+  \item Briefly describe how you tested each function to verify that it was implemented correctly.
+\end{itemize}
+
+\section*{Root Solving Challenge}
+
+You may choose to implement Brent's method for root finding instead of Ridder's method.
+Use the template that is provided,
+but change the name to \texttt{brentRootSolver} and update the documentation.
+You will receive an extra 5 points on your assignment, although the max score will still be 50.
+This method is described in section 9.3 of Numerical Recipes in C and it is what
+Matlab uses to implement the \texttt{fzero} function.
+
+\section*{Optimization Challenge}
+
+You may choose to implement Brent's method for optimization instead of the golden section search.
+Use the template that is provided,
+but change the name to \texttt{brentOptimization} and update the documentation.
+You will receive an extra 10 points on your assignment, although the max score will still be 50.
+This method is described in section 10.2 of Numerical Recipes in C and it is what
+Matlab uses to implement the \texttt{fminbnd} function.
+
+\pagebreak
+\lstinputlisting{riddersMethod.m}
+
+\pagebreak
+\lstinputlisting{goldenSection.m}
+
+%=================================================
+\end{document}
