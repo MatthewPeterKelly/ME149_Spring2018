@@ -1,0 +1,137 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Assignment 07:  Ballistic Trajectory Calculation}
+\date{Assigned:  February 27  ---  Due:  March 7 at 11:55pm}
+\author{Optimal Control for Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+%=================================================
+
+\section*{Introduction}
+
+In this assignment you will solve a simple boundary value problem using single shooting.
+
+The example problem will be that of aiming a canon:
+compute the launch velocity vector with the minimum launch speed
+such that the projectile reaches the specified target.
+
+\section*{Deliverables}
+
+Implement the function \texttt{getBallisticParameters} using the template provided.
+Also submit any additional Matlab code that you write for the assignment.
+
+\section*{Write-Up:}
+
+In addition to the Matlab code described above,
+upload a short write-up for this assignment: \\
+\texttt{hw\_07\_studentName\_writeup.txt}
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+  \item Header: full name, date, assignment name and number
+  \item List any other students that you worked with.
+  \item How long did this assignment take you?
+  \item Briefly describe your approach to testing your code.
+  \item Answers to the questions below.
+\end{itemize}
+
+One of the best ways to learn about trajectory optimization is to experiment with
+the inputs and outputs of an optimization.
+Here are a few things to investigate.
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+\item How does varying the number of grid points and simulation method affect the
+      number of iterations, solve time, and final accuracy of the NLP solver?
+\item Adjust the various problem parameters to see how the solution changes.
+      What happens if the drag is large and the distance is large? Why?
+\item How many function calls does \texttt{fmincon} make on each iteration?
+      What is going on here?
+\end{itemize}
+
+\pagebreak
+\section*{\texttt{computeBallisticTrajectory.m}}
+
+For this assignment you will implement one Matlab function: \texttt{computeBallisticTrajectory}.
+This function takes a set of paramters that describe a specific boundary value problem
+and the computes the optimal ballistic trajectory.
+In general there are many ways to solve this problem.
+For this assignment I will restrict a few of the details to keep things consistent across the class.
+\vspace{-0.6em} \begin{itemize}  \setlength\itemsep{0em}
+  \item Use the Matlab function \texttt{fmincon} to solve the underlying non-linear program.
+        Create a \texttt{problem} data structure to define the NLP and
+        then pass it as a single argument to \texttt{fmincon}.
+  \item Use the function \texttt{runSimulation} from the code library to run the simulation.
+  \item Use a uniform time grid.
+  \item Use all of the inputs and return all of the outputs that are specified in the template code.
+  \item The decision variables in the optiization should be the initial velocity vector (three elements)
+        and the total duration of the simulation.
+  \item The objective function should be the initial speed squared.
+\end{itemize}
+
+
+\subsection*{Inputs:}
+
+There are four inputs to this function, which are described in detail in the source code.
+The first input, \texttt{param}, describes the boundary value problem specification:
+boundary positions and physics model parameters.
+The function \texttt{getBallisticParameters} in the assignment source code can be used
+to provide a candidate set of parameters.
+The second input, \texttt{nGrid}, gives the number of gridpoints
+that should be used for the underlying simulation.
+Next is \texttt{method} which is passed directly to \texttt{runSimulation}.
+The final input, \texttt{nlpOpt}, is a set of options that are passed to \texttt{fmincon}.
+See the template code for how to get the default parameters.
+
+\subsection*{Outputs:}
+
+There are two outputs, which describe the optimal trajectory that the ballistic projectile takes.
+The first should be the uniform time grid that was used by the simulation for the dynamics.
+The second should be the full state (position and velocity) at each point in time.
+
+\pagebreak
+\subsection*{Template Code:}
+
+\lstinputlisting{computeBallisticTrajectory.m}
+
+
+\pagebreak
+
+\section*{Dynamics Model}
+
+We will use a simple model of projectile motion:
+the projectile is acted on by only gravity and a quadratic drag force.
+The dynamics are implemented in the code library: \\
+\texttt{ME149/codeLibrary/modelSystems/projectile/projectileDynamics.m} \\
+The equations of motion are given below for the curious.
+The constant parameters are:
+$d$ = coefficient of quadratic drag,
+$g$ = acceleration due to gravity,
+$m$ = projectile mass,
+$\bm{\vec{w}}$ = wind velocity.
+There are three time-varying scalar functions:
+$x = x(t)$, $y = y(t)$, and $z = z(t)$ that describe the position of the projectile.
+Finally, there are three constant unit vectors:
+$ \hat{\bm{i}}$, $\bm{\hat{j}}$, $\hat{\bm{k}}$.
+
+\begin{equation}
+  \bm{\vec{p}} = x  \,  \bm{\hat{i}} + y  \,  \bm{\hat{j}} + z  \,  \bm{\hat{k}}
+\end{equation}
+\vspace{-0.8em}
+\begin{equation}
+  \bm{\vec{v}} = \bm{\dot{\vec{p}}} - \bm{\vec{w}}
+\end{equation}
+\vspace{-0.5em}
+\begin{equation}
+  \bm{\vec{F}_D} = -d   \;  || \bm{\vec{v}} ||  \;  \bm{\vec{v}}
+\end{equation}
+\vspace{-0.5em}
+\begin{equation}
+  \bm{\vec{F}_G} = -m  \;  g  \;  \bm{\hat{k}}
+\end{equation}
+\vspace{-0.5em}
+\begin{equation}
+  \bm{\ddot{\vec{p}}} = ( \bm{\vec{F}_D} + \bm{\vec{F}_G} ) / m
+\end{equation}
+
+
+%=================================================
+\end{document}
