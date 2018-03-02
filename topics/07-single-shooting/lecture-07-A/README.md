@@ -23,6 +23,7 @@ Chapter three in Bett's Book (Practical Methods for Optimal Control)
 - good introduction, somewhat more technical
 
 ## Outline for today:
+- Boundary value problems
 - Trajectory optimization
 - Function approximation
 - Transcription
@@ -39,10 +40,14 @@ Chapter three in Bett's Book (Practical Methods for Optimal Control)
   - this is a bit harder:  differential-algebraic equation (DAE)
     - similar to simulation, but there is a big non-linear constraint
 
-## How to solve?
-- shooting!
+## in Matlab
+- bvp4c:  solve boundary value problem
+- fsolve:  multi-dimensional unconstrained root solver
+- fminsearch:  multi-dimensional unconstrained optimization
+
+## How to solve boundary value problem?
+- many methods, we'll start with single shooting
 - draw canon example
-- single shooting
 
 ## Trajectory Optimization
 - trajectory, informal definition:
@@ -139,39 +144,15 @@ Chapter three in Bett's Book (Practical Methods for Optimal Control)
 - choice of grid and integration method
 - do not use ode45 for transcription!
 
-## A simple example:
-- aiming a canon
-- draw on board
-
-## Transcription Method
-
-## System dynamics
-
-## (Direct) Single Shooting Method
-
-## Runge--Kutta Schemes in shooting methods
-
-## Implicit vs Explicit:  matters less now
-
-
 ## Misc:
 - never use an iterative solver or variable step method (eg. ode45) in an optimization!
 
 ## Nonlinear Programming Solver:  FMINCON
-
-## Options for FMINCON
-- https://www.mathworks.com/help/optim/ug/choosing-the-algorithm.html#bsbwxm7
-
-## Behind the scenes FMINCON
-
-## FMINCON Resources:
+- Options for FMINCON
+  - https://www.mathworks.com/help/optim/ug/choosing-the-algorithm.html#bsbwxm7
+-documentation for FMINCON:
 - https://www.mathworks.com/help/optim/ug/fmincon.html
-
 
 ## Alternative solvers:
 - IPOPT  (free and good)
 - SNOPT  ($$$$ and very good)
-
-
-## SImple demo:
-fmincon on simple NLP

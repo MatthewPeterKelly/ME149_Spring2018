@@ -25,6 +25,7 @@ P1.nonlcon = @(z)( rosenbrock_cubicAndLiner(z(1,:), z(2,:)) );
 P1.options = nlpOpt;
 P1.solver = 'fmincon';
 [S1.z, S1.f, S1.exit, S1.output] = fmincon(P1);
+
 if norm(S1.z - [1;1]) > 1e-4 || S1.f > 1e-6
    warning('FMINCON failed to return the correct solution to P1'); 
 end
