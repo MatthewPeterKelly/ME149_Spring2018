@@ -8,8 +8,9 @@ function dz = projectileDynamics(z, param)
 %   z = [6, n] = [x1;x2;x3;  dx1; dx2; dx3] = state vector
 %   param = parameter struct
 %       .gravity = scalar = gravity constant
-%       .wind = [3,1] = [w1; w2; w3] = wind velocitypwd
+%       .wind = [3,1] = [w1; w2; w3] = wind velocity
 %       .drag = scalar = quadratic drag constant
+%       .mass = scalar = mass of the projectile
 %
 % OUTPUTS:
 %   dz = [6, n] = [dx1; dx2; dx3;  ddx1; ddx2; ddx3] = state derivative vector
