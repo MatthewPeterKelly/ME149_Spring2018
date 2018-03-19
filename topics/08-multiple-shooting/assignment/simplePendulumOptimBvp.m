@@ -36,6 +36,13 @@ function soln = simplePendulumOptimBvp(config, param, nlpOpt)
 %       .objVal = value of the objective function
 %       .[all fields in the fmincon "output" struct]
 %
+% NOTES:
+%
+%   Minimize: integral of actuator torque along the entire trajectory.
+%   J = \int_0^T u^2(t) dt
+%
+%   Subject to: system dynamics and boundary conditions
+%
 
 %%%% TODO:  Implement this function
 
