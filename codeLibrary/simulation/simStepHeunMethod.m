@@ -17,18 +17,22 @@ function [zNext, nEval] = simStepHeunMethod(dynFun, tPrev, tNext, zPrev)
 %    nEval = scalar = numer of internal calls to dynamics function
 %
 
+% Step size:
 h = tNext - tPrev;
 
-% Eulers method to approximate the next state
-zNextApprox = zPrev + h * dynFun(tPrev, zPrev);
+% Function evaluations at initial point
+dzPrevEst = dynFun(tPrev, zPrev);
 
-% Approximate the state at the midpoint:
-tMid = tPrev + 0.5 * h;
-zMid = 0.5 * (zPrev + zNextApprox);
+% State estimate at final point
+zNextEst = zPrev + h * dzPrevEst;
 
-% Compute the state at the next point, using dynamics at the midpoint:
-zNext = zPrev + h * dynFun(tMid, zMid);
+% Function evaluation at estimate of final point
+dzNextEst = dynFun(tNext, zNextEst);
 
-nEval = 2;
+% Combine the two estimates to compute the second-order step
+zNext = zPrev + 0.5 * h * (dzPrevEst + dzNextEst);
+
+% Two function evaluations
+nEval = 2;  % second-order method  (two function evaluations)
 
 end
