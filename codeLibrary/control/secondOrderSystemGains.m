@@ -29,7 +29,7 @@ if nargin < 3
     m = 1.0;
 end
 
-Kp = -m * wn * wn;
-Kd = -2 * m * wn * xi;
+Kp = -m .* wn .* wn;
+Kd = -2 * m .* wn .* xi;
 
 end

@@ -15,6 +15,8 @@ This lecture will focus on providing a working overview of Linear Quadratic Regu
   - 2010  (there is also a 2009 version in RSS, but the 2010 version has more information about LQR and is better organized)
   - **Section 3.1 and 3.3** (don't worry about verification sub-sections)
   - http://groups.csail.mit.edu/robotics-center/public_papers/Tedrake10.pdf
+- **Underactuated Robotics:**
+  - http://underactuated.csail.mit.edu/underactuated.html?chapter=lqr
 
 ## A trick for setting the LQR terminal cost:
 The finite-horizon (trajectory) LQR method requires a terminal cost.
