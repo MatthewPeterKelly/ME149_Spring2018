@@ -1,0 +1,120 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Direct Collocation via Trapezoid Method}
+\author{Matthew P. Kelly}
+%========================================================================
+\begin{document}
+\maketitle
+
+\begin{abstract*}
+This document gives a few examples of how to perform transcription using the
+trapezoid method for direct collocation.
+\end{abstract*}
+
+\section{Boundary Value Problem with Path Objective (simple)}
+
+Here is a general formulation for a continuous-time trajectory optimization problem.
+For now, let's assume that the duration $T$ is given.
+
+\begin{align*}
+  & \text{minimize: } \qquad J = \int_0^T \! g(t,\, \bm{x},\, \bm{u}) \, dt \\
+  & \text{subject to: } \qquad \bm{0} = \bm{h}(\bm{x}(0), \, \bm{x}(T)) \\
+  & \text{dynamics: } \qquad \dot{\bm{x}} = \bm{f}(t,\, \bm{x},\, \bm{u}) \\
+\end{align*}
+
+Perform direct transcription using the trapezoid method. In other words,
+the system dynamics and path objective are both approximated
+using the trapezoid rule for quadrature.
+To start with, we will us a uniform time grid with $N$ segments:
+\begin{equation*}
+  h = \frac{T}{N}  \quad \quad \quad \quad t_k = k \cdot h
+\end{equation*}
+
+\textbf{Decision Variables: }  $\displaystyle
+  \bm{x}_0, \bm{x}_1, \dots ,\bm{x}_N, \quad \bm{u}_0, \bm{u}_1, \dots, \bm{u}_N
+$ \\ \vspace{1em} \\
+
+\textbf{Objective Function: } $\displaystyle
+  J = \frac{h}{2} \cdot \sum_{k=0}^{N-1} \Big(
+  g(t_k,\,  \bm{x}_k,\,  \bm{u}_k)
+  \, + \,
+  g(t_{k+1},\,  \bm{x}_{k+1},\,  \bm{u}_{k+1}) \Big)
+$ \\ \vspace{1em} \\
+
+\textbf{Boundary Constraints: } $\displaystyle
+  \bm{0} = \bm{h}(\bm{x}_0, \, \bm{x}_N)
+$ \\ \vspace{1em} \\
+
+\textbf{System Dynamics Constraints: } \\
+\begin{equation*}
+  \bm{x}_{k+1} = \bm{x}_k + \frac{h}{2} \cdot
+  \Big(
+  \bm{f}(t_k,\,  \bm{x}_k,\,  \bm{u}_k)
+  \, + \,
+  \bm{f}(t_{k+1},\,  \bm{x}_{k+1},\,  \bm{u}_{k+1})
+  \Big)
+  \quad \quad \quad \quad k \in 0 \dots (N-1)
+\end{equation*}
+
+%=================================================
+
+
+\section{Boundary Value Problem with Path Objective (Arbitrary Grid)}
+
+Here is a general formulation for a continuous-time trajectory optimization problem.
+Now let's make the boundary times decision variables and use an arbitrary grid.
+
+\begin{align*}
+  & \text{minimize: } \qquad J = \int_{T_0}^{T_F} \! g(t,\, \bm{x},\, \bm{u}) \, dt \\[1em]
+  & \text{subject to: } \qquad \bm{0} = \bm{h}(T_0, \, T_F,\, \bm{x}(T_0), \, \bm{x}(T_F)) \\[1em]
+  & \text{dynamics: } \qquad \dot{\bm{x}} = \bm{f}(t,\, \bm{x},\, \bm{u}) \\
+\end{align*}
+
+We will use an arbitrary grid, which we
+assume is provided either by the user or a mesh refinement algorithm.
+We then apply a linear mapping to this initial grid such that the
+initial and final points on the grid match up with
+the initial and final times that the optimization is using. This allows us to
+compute the time grid from the
+boundary times ($t_0, t_N$) and the mesh fraction ($\gamma_0, \gamma_1, \dots, \gamma_N$).
+
+\begin{equation*}
+  h_k = t_{k+1} - t_k
+  \quad \quad \quad \quad
+  t_k = \frac{t_N - t_0}{\gamma_N - \gamma_0} \cdot (\gamma_k - \gamma_0) + t_0
+\end{equation*}
+
+\textbf{Decision Variables: }  $\displaystyle
+  t_0, \, t_N,\,
+  \quad
+  \bm{x}_0,\, \bm{x}_1,\, \dots, \,\bm{x}_N,\,
+  \quad
+  \bm{u}_0,\, \bm{u}_1,\, \dots,\, \bm{u}_N\,
+$ \\ \vspace{1em} \\
+
+\textbf{Objective Function: } $\displaystyle
+  J = \frac{1}{2} \cdot \sum_{k=0}^{N-1}
+  h_k
+  \Big( g(t_k,\,  \bm{x}_k,\,  \bm{u}_k)
+  \, + \,
+  g(t_{k+1},\,  \bm{x}_{k+1},\,  \bm{u}_{k+1}) \Big)
+$ \\ \vspace{1em} \\
+
+\textbf{Boundary Constraints: } $\displaystyle
+  \bm{0} = \bm{h}(t_0, \, t_N,\, \bm{x}_0, \, \bm{x}_N)
+$ \\ \vspace{1em} \\
+
+\textbf{System Dynamics Constraints: } \\
+\begin{equation*}
+  \bm{x}_{k+1} = \bm{x}_k + \frac{h_k}{2} \cdot
+  \Big(
+  \bm{f}(t_k,\,  \bm{x}_k,\,  \bm{u}_k)
+  \, + \,
+  \bm{f}(t_{k+1},\,  \bm{x}_{k+1},\,  \bm{u}_{k+1})
+  \Big)
+  \quad \quad \quad \quad k \in 0 \dots (N-1)
+\end{equation*}
+
+%=================================================
+\end{document}

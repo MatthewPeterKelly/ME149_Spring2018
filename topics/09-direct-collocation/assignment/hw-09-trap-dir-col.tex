@@ -1,0 +1,60 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Assignment 09:  Trapezoid Direct Collocation}
+\date{Assigned:  March 27  ---  Due:  April 4 at 11:55pm}
+\author{Optimal Control for Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+%=================================================
+
+\section*{Introduction}
+
+In this assignment you will use the trapezoid method for direct collocation to
+compute the minimal-torque swing-up for a simple pendulum,
+and the minimal-thrust flip maneuver for a planar quadrotor model.
+
+\section*{Implementation Details}
+Most of the code to implement these two optimizations is included in the
+assignment. You only need to implement two sub-functions within the file
+\texttt{dirColBvpTrap.m}.
+The first computes the objective function value and the second evaluates the
+nonlinear constraints.
+The \texttt{dirColBvpTrap()} function calls a few functions from the code library,
+so make sure that you've added that to your Matlab path before starting this assignment.
+
+\par
+Your code must be written well, both for computational efficiency and readability.
+
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+
+  \item Your code should be fully vectorized: no for loops are allowed.
+
+  \item Use the function \texttt{unpackDecVars} to obtain the
+  state and control at the grid points.
+  This makes the code more readable and avoids bugs relating to indexing into decVars.
+
+  \item Make use of the data provided in the problem description struct.
+  Many useful quantities are pre-computed and saved into this data structure.
+
+\end{itemize}
+
+\section*{Coding Challenge}
+
+If you want a challenge, then start this assignment by deleting some or all
+parts of the template code, leaving only the function declaration and
+documentation (first 75 lines of code). If you choose this option, then please
+add a note to the function documentation, along with a description of how you
+organized your code.
+
+Your code should still follow the good coding practices described above,
+although you do not need to implement the specific sub-functions that are
+in the template.
+
+\section*{Deliverables}
+
+Implement the function \texttt{dirColBvpTrap.m} using the template provided.
+
+%=================================================
+\end{document}
