@@ -1,0 +1,165 @@
+\input{../assignment-header}
+
+%========================================================================
+\title{ME 149:  Final Project  --  [DRAFT]}
+\date{Assigned: April 3  ---  Due: April 29 at 11:55pm}
+\author{Optimal Control for Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+
+%=================================================
+
+\section*{Introduction}
+
+In the final project for ME 149 you will
+implement your own trajectory optimization code
+to solve two or more problems of your choosing.
+You will start with the basic problem formulations that we have used in the homework
+and then add a few features to your code to make the project interesting.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Working alone or with a partner}
+
+For the final project you may choose to work alone or with a partner.
+If you choose to work with a partner then you will need to propose a more
+challenging project (see Advanced Requirements below).
+How does grading work with a partner?
+You will submit a single proposal and a single final report,
+and you will both receive the same grade for the final project.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Basic Requirements}
+
+In this project you will implement your own trajectory optimization code.
+The basic requirements, listed below, must be met by every project submission.
+
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+
+  \item Implement a direct collocation transcription method
+
+  \item Solve two different trajectory optimization problems
+
+  \item Both optimization problems must be solved using the same transcription function ---
+        in other words, your transcription should be somewhat general purpose.
+
+  \item Produce an estimate of the method error that accumulates over each segment
+        of the transcription method.
+
+  \item The solution of each optimization problem should be clearly conveyed
+        through a set of plots, including initial guess and error estimates.
+
+  \item Your solution should be in the form of an interpolating spline in
+        addition to the values at the grid points.
+
+  \item You code should be well written and documented.
+
+\end{itemize}
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Advanced Requirements}
+
+In addition to the basic requirements, each project must include some advanced
+features. I've included a few ideas below, each of which is assigned a
+difficulty score of one to four points. Your project proposal must have at
+least three points (for one person) or five points (if working in a pair).
+You may count the single-point feature multiple times
+(for example, you would get one point for
+each additional different optimization problem that you solved).
+You may suggest additional features in your project proposal if you have ideas
+that are not listed below.
+
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+
+\item Constraints not found in homework problems for this course.
+      \textbf{[ 1 pt ]}
+
+\item Objective function not found in homework problems for this course.
+      \textbf{[ 1 pt ]}
+
+\item Use a dynamical system that is not found in the code library for this course.
+      \textbf{[ 1 pt ]}
+
+\item Implement a forward simulation of your solution using ode45 to compute
+      an additional error estimate, then compare the two estimates.
+      \textbf{[ 1 pt ]}
+
+\item Solve an additional (different) optimization problem.
+      \textbf{[ 1 pt ]}
+
+\item Use Hermite--Simpson direct collocation or another medium-order method.
+      \textbf{[ 1 pt ]}
+
+\item Implement a tracking controller and forward simulation using the solution
+      to one or both of your optimization problems.
+      \textbf{[ 2-3 pt ]}
+
+\item Solve a multi-phase trajectory optimization problem for one or both systems.
+      \textbf{[2-3 pt]}
+
+\item Implement analytic gradients in your optimization code and use them for
+      one or both of your systems. Be sure to verify gradients with FMINCON.
+      \textbf{[ 3-4 pt ]}
+
+\item Implement high-order (orthogonal) direct collocation. Points vary by the
+      generality of your meshing scheme:
+      global collocation / multi-segment, fixed-order / multi-segment, mixed-order.
+      \textbf{[ 2-4 pt ]}
+
+\end{itemize}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Proposal  --- due April 5}
+
+Create a brief proposal (one side of one page) that outlines your plan for the
+final project. Print out your proposal and bring it to class with you on Thursday April 5.
+
+It should include:
+
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{18pt}
+
+\item Are you working alone or in a pair? If in a pair, list both partners names.
+
+\item Which dynamical system (or systems) are you using?
+
+\item Informal description for each optimization problem.
+      Clearly identify the objective and constraint functions.
+
+\item Which transcription technique will you be using?
+
+\item Which advanced requirements have you selected?
+
+\end{itemize}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Final Project Submission  --- due April 29 at 11:55pm}
+
+\subsection*{Report and appendix}
+The primary deliverable for the final project will be a written report,
+which should be submitted as a pdf document in the style of a conference paper.
+The report should contain a clear description of the project and the methods that were used.
+The main body of the report should be not more than four pages with reasonable formatting.
+The appendix may be as long as you like, although each section in the appendix should be
+referenced in the main body of the report.
+
+\subsection*{Source Code}
+The source code for your project should be included as a single compressed archive;
+do not include it in the pdf appendix. It should be well documented, including a
+README.md file at the top level that describes what each function does and where the
+entry point scripts (one for each problem) are. It should also indicate what dependencies
+your code has.
+
+\subsection*{Media: video  [optional]}
+If your project includes an interesting animation, then you might find it useful to create a video.
+You can also use the video to explain your methods or other features of the project
+This can either be included in the upload with your report and source code, or posted to YouTube
+with a link in your report. Limit the duration of the video to 3 minutes.
+
+%=================================================
+\end{document}
