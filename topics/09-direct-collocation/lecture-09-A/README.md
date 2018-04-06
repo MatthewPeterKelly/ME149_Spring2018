@@ -5,6 +5,8 @@
 - return at end of class
 - solutions posted
 
+# Implementation details!
+
 ## HW 08:
 - due tomorrow!
 - multiple shooting
@@ -29,12 +31,33 @@
 - based on problem specific data where possible
 
 ## Is my solution correct?
-- hard limits:
+- Sources of error:
   - nlp constraint feasibility
   - integration accuracy
   - nlp optimality
   - quadrature accuracy
-- global vs local minimum
+  - global vs local minimum
+- How to check if your method gets the "correct" answer?
+  - difficult (impossible) to do in general
+    - cannot check global optimality
+  - we CAN check two things:
+    - feasibility
+    - local optimality
+- Feasibility:
+  - use error estimates associated with integration method
+    - both local and global error estimates
+  - use high-accuracy forward simulation of open-loop control
+    - verify that state trajectory is similar
+  - limited by NLP solver constraint tolerance...
+  - also strongly affected by constraint scaling
+- Optimality:
+  - heuristics:
+    - is the solution smooth? should it be smooth?
+    - does it look reasonable?
+    - can you think of an obvious trajectory that is better?
+    - can another objective function find a solution that has a lower cost for your objective? (this is bad if so)
+  - MATH:  check the necessary and sufficient conditions...
+    - brief intro: indirect methods...
 
 ## Intro to direct collocation!
 - big picture:

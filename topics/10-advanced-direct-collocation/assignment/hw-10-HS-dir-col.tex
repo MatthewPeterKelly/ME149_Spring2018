@@ -1,0 +1,46 @@
+\input{../../assignment-header}
+
+%========================================================================
+\title{Assignment 10:  Hermite--Simpson Direct Collocation}
+\date{Assigned:  April 6  ---  Due:  April 13 at 11:55pm}
+\author{Optimal Control for Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+%=================================================
+
+\section*{Introduction}
+
+In this assignment you will use the Hermtie--Simpson method for direct collocation
+to compute the minimal-torque swing-up for a simple pendulum,
+and the minimal-thrust flip maneuver for a planar quadrotor model.
+
+\section*{Implementation Details}
+
+\par There are two formulations of the Hermite--Simpson direct collocation
+technique: separated and compressed. In the separated form, the state at the
+midpoint of each segment is a decision variable, while in the compressed form
+the state at each midpoint is explicitly computed on each iteration.
+For this assignment please use the separated form.
+
+\par This asignment is intentionally very similar to HW 09, with the
+only difference being the collocation method.
+You to start with your solution for HW 09, and then modify it to use the
+Hermite--Simpson method instead of the trapezoid method.
+You may choose instead to start with the solution to HW 09,
+although you should make a note in the code that indicates this.
+
+\par Hermite--Simpson direct collocation uses a cubic spline for the state and
+a quadratic spline for the control. I suggest that you use the spline utilities
+in the code library for the course to generate these splines, although you are
+welcome to use you own implementation if desired.
+
+\par I've included the solution in p-code form so that you can check your
+implementation.
+
+\section*{Deliverables}
+
+Implement the function \texttt{dirColBvpHermiteSimpson.m} using the template provided.
+
+%=================================================
+\end{document}
