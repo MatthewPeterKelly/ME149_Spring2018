@@ -20,7 +20,7 @@ function pp = ppSpline2a(tGrid, xGrid, dxGrid)
 %   "Practical Methods for Optimal Control and Estimation Using NOnlinear
 %   Programming" by John T. Betts. Section 4.7.1 - 4.7.2.
 %   
-%   "Trajectory Optimization: Overview and Tutorial"  Slide 20
+%   "Trajectory Optimization: Overview and Tutorial"  Slide 28
 %   By Matthew P. Kelly
 %   http://www.matthewpeterkelly.com/tutorials/trajectoryOptimization/cartPoleCollocation.svg
 %
