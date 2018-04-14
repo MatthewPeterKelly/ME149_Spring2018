@@ -3,6 +3,7 @@
 % 
 
 clc; clear;
+run('../../../codeLibrary/addLibraryToPath.m');
 if ~checkForChebFun()
    error('This example required the ChebFun toolbox!'); 
 end
