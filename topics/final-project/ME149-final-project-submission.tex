@@ -1,0 +1,109 @@
+\input{../assignment-header}
+
+%========================================================================
+\title{ME 149:  Final Project Submission}
+\date{Assigned: April 3  ---  Due: April 29 at 11:55pm}
+\author{Optimal Control for Robotics}
+%========================================================================
+\begin{document}
+\maketitle
+
+%=================================================
+
+\section*{Deliverables}
+
+You should submit two items to Trunk for your final project.
+The first is a \texttt{.pdf} format write-up and
+the second is a single \texttt{.zip} file that contains all of your source code.
+Both files are described in detail in the following sections.
+
+\par
+If you are working with a partner, then both students should upload report and
+source code files to trunk.
+The files should be identical and the report should include both students names.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Project Report}
+
+The main body of the report should not exceed four pages.
+You may choose to include an appendix.
+The appendix has no page limit but each section must be
+referenced from within the main body of the report.
+The report should be written in a clear and concise manner, and it should
+contain equations, figures, and references where appropriate.
+The report can be organized however is best for your project,
+but take a look a some conference papers for inspiration.
+A good report will include
+a clear description of the problems being solved, written both in english and equations;
+a clear statement of the transcription method(s) and the resulting non-linear program; and
+a summary of the results.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Source Code}
+
+The source code should be well written and clearly documented.
+There are several requirements:
+
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{4pt}
+
+  \item There must be a \texttt{README.md} file in the top-level directory.
+        As the name suggests, this file should be written in Markdown.
+        This file should provide an outline of how your code is organized
+        and any other information that will be useful to someone reading
+        your source code. This file should also include a description
+        for each entry-point file that you have provided.
+
+  \item There should be one or more entry-point scripts in your top-level
+        directory. These scripts should be named \texttt{MAIN\_<description>.m},
+        and each should include documentation at the top of the file that
+        describes what it does in detail.
+
+  \item The entry-point scripts should run! You may assume that the test
+        computer will have the code library for the course on the Matlab path.
+        Clearly state any other dependencies in the \texttt{README.md} file
+        as well as the entry-point scripts.
+
+  \item Your function files should all be named in \texttt{camelCase.md} and
+        provide help documentation following the format used throughout the
+        class in the assignment solutions.
+
+  \item You code should be well written and well documented.
+
+  \item Running each entry-point script should produce a set of plots that
+        provide useful information about the problem being solved and the solution.
+
+  \item Create a directory called \texttt{results} and save a \texttt{.pdf} version
+        of each figure that your code generates.
+
+\end{itemize}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\section*{Grading}
+
+I have included a draft of the rubric that I plan to use for grading the
+final project. This is included as a guide for helping to focus your work on
+the project, rather than as a strict contract.
+I will award up to five additional points for projects that are ambitious and well done.
+
+\vspace{-0.0em} \begin{itemize}  \setlength\itemsep{0em} \setlength\itemindent{4pt}
+
+  \item \textbf{Meets Basic Requirements: 10pts}
+  \item \textbf{Meets Advanced Requirements: 10pts}
+  \item \textbf{Code Runs: 10pts}
+  \item \textbf{\textttt{README.md}: 5 pts}
+  \item \textbf{Code --- Documentation: 5 pts}
+  \item \textbf{Code --- Style: 5pts}
+  \item \textbf{Code --- Correct Implementation: 10pts}
+  \item \textbf{Report --- Problem Statement: 10}
+  \item \textbf{Report --- Methods / Transcription: 10}
+  \item \textbf{Report --- Results: 10}
+  \item \textbf{Report --- Correct Math: 5 pts}
+  \item \textbf{Report --- Clarity and Organization: 10 pts}
+
+
+\end{itemize}
+%=================================================
+\end{document}
