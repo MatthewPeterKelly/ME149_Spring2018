@@ -51,7 +51,7 @@ https://en.wikipedia.org/wiki/Bellman_equation
 
 - Value function vs reward function vs objective function:
   - A value function is how "good" a state is, provided that the behavior of the system is perfectly optimal.
-  - A reward function is local, similar to an objective fucntion. It describes how good a current state is, independent of the control. It is typically used to initialize the value function. A typical reward function might include a large reward at the goal state, zero reward in most states, and a penalty (negative reward) for failure states (eg. robot fell down).
+  - A reward function is local, similar to an objective function. It describes how good a current state is, independent of the control. It is typically used to initialize the value function. A typical reward function might include a large reward at the goal state, zero reward in most states, and a penalty (negative reward) for failure states (eg. robot fell down).
   - Actions (controls) can also have rewards associated with them.
 
 - How is this done in practice?  Function approximation. Examples:
